@@ -1,0 +1,104 @@
+<form id="formEditorial" action="#">
+    <div class="form-group">
+       <label for="text">Nombres y Apellidos:</label>
+        <input type="text" id="txtnames" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="text">Cargo:</label>
+         <input type="text" id="txtcargo" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="text">Página web:</label>
+         <input type="text" id="txtweb" value="www.editorialbarreto.com" class="form-control" disabled>
+    </div>
+    <div class="form-group">
+        <label for="text">Correo corporativo:</label>
+         <input type="email" id="txtcorreo" class="form-control">
+    </div>
+ <button type="submit" class="btn btn-primary">Submit</button>
+ </form>
+ <div class="card pl-2 pt-2 pb-2 pr-2 mt-4" id="contenedorFirma">
+    <h3>Firma sin contenido...</h3>
+ </div>
+ <script>
+     $('#formEditorial').on('submit',function(e){
+   var url = location.href;
+   e.preventDefault();
+   var names = $('#txtnames').val();
+   var cargo = $('#txtcargo').val();
+   var pweb = 'xd';
+   var correo = $('#txtcorreo').val();
+   
+   if(names.trim() !== "" && cargo.trim() !== "" && pweb.trim() !== "" && correo.trim() !== ""){
+
+    //$('#contenedorFirma').load('../common/editorialbarreto/index.html?txtnamesEdit='+names+'&txtcargoEdit='+cargo+'&txtwebEdit='+pweb+'&txtcorreoEdit='+correo+'');
+    $('#contenedorFirma').html(`<div id="firma" style="background:#fff;"><table border="0">
+    <tbody>
+    <tr>
+       <td rowspan="5" style="padding:0px;">
+       <img src="./assets/imgs/editorialBarreto/logoEdiFirma.PNG" />
+       </td>
+       <td colspan="2">&nbsp;</td>
+       <td rowspan="5" style="border-right: 1px solid #3297b4;width: 13px;"></td>
+       <td rowspan="5">&nbsp;&nbsp;</td>
+       <td></td>
+    </tr>
+    <tr>
+       <td colspan="2" style="color:#3297b4;font-weight:700;padding: 0px;">
+       <h2 style="margin: 0;font-family: verdana;font-size: 20px;" id="txtnamesEdit">${names}</h2>
+       </td>
+       <td></td>
+    </tr>
+    <tr style="font-size: 15px;color: #565656;font-family: verdana;font-weight: 600;">
+       <td colspan="2" id="txtcargoEdit">${cargo}</td>
+       <td><img src="./assets/imgs/editorialBarreto/fb.png"/></td>
+    </tr>
+    <tr>
+       <td><img src="./assets/imgs/editorialBarreto/we.png"/></td>
+       <td style="font-family: verdana;font-size: 11px;color: #565656;" id="txtwebEdit">www.editorialbarreto.com</td>
+       <td><img src="./assets/imgs/editorialBarreto/in.png"/></td>
+    </tr>
+    <tr>
+       <td><img src="./assets/imgs/editorialBarreto/email.png"/></td>
+       <td style="font-family: verdana;font-size: 11px;color: #565656;" id="txtcorreoEdit">${correo}</td>
+       <td><img src="./assets/imgs/editorialBarreto/instagram.png"/></td>
+    </tr>
+    </tbody>
+</table></div>`);
+    $('#contenedorFirma').append('<button class="btn-sm btn-primary mt-4" id="btnSave2">Descargar Imagen</button>')
+    document.getElementById('firma').contentEditable = 'true';
+    document.getElementById('firma').designMode='on';
+   
+
+    $("#btnSave2").click(function(e) {
+        e.preventDefault();
+    html2canvas($("#firma"), {
+      onrendered: function(canvas) {
+        saveAs(canvas.toDataURL(), 'firma.png');
+      }
+    });
+  });
+
+  function saveAs(uri, filename) {
+    var link = document.createElement('a');
+    if (typeof link.download === 'string') {
+      link.href = uri;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      window.open(uri);
+    }
+  }
+  
+    
+    
+}else{
+       alert("Completa todos los campos!");
+   }
+
+   
+
+});
+ </script>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://norfipc.com/js/html2canvas.0.4.1.min.js"></script>
+    <title>Generador de firmas</title>
+</head>
+<body>
+<div class="container" id="todo">
+    <div class="card pl-4 pt-2 pr-4 pb-4 mt-4" style="width:550px;margin:auto">
+     <h2>Generador de firmas</h2>
+     <form action="#" id="form-generador">
+        <div class="form-group">
+           <label for="email">Institución:</label>
+           <select id="cbo_institucion" class="form-control">
+               <option value="0">Selecciona opción</option>
+               <option value="1">Editorial Barreto</option> 
+               <option value="2">Innova Scientific</option>            
+           </select>
+        </div>
+        <div id="formContenedor">
+        </div>
+     </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+      $('#cbo_institucion').change(function(){
+         var val = $(this).val();
+         if(val !== "0"){
+             //Insert contenido por valor
+             switch(val){
+                 case "1":
+                     $('#formContenedor').load("common/editorialBarreto/form.html");
+                 break;
+                 case "2":
+                     $('#formContenedor').load("common/innovascientific/form.html");
+                 break;
+             }
+         }else{
+             //Remove contenido
+             $('#formContenedor').empty();
+         }
+      });
+    });
+</script>
+</body>
+</html>

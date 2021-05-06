@@ -1,0 +1,100 @@
+<form id="formEditorial" action="#">
+    <div class="form-group">
+       <label for="text">Nombres y Apellidos:</label>
+        <input type="text" id="txtnames" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="text">Cargo:</label>
+         <input type="text" id="txtcargo" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="text">Telefono:</label>
+         <input type="text" id="txttelefono" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="text">Página web:</label>
+         <input type="text" id="txtweb" value="www.innovascientific.com" class="form-control" disabled>
+    </div>
+    <div class="form-group">
+        <label for="text">Correo corporativo:</label>
+         <input type="email" id="txtcorreo" class="form-control">
+    </div>
+ <button type="submit" class="btn btn-primary">Submit</button>
+ </form>
+ <div class="card pl-2 pt-2 pb-2 pr-2 mt-4" id="contenedorFirma">
+    <h3>Firma sin contenido...</h3>
+ </div>
+ <script>
+     $('#formEditorial').on('submit',function(e){
+   var url = location.href;
+   e.preventDefault();
+   var names = $('#txtnames').val();
+   var cargo = $('#txtcargo').val();
+   var telefono = $('#txttelefono').val()
+   var pweb = 'xd';
+   var correo = $('#txtcorreo').val();
+   
+   if(names.trim() !== "" && cargo.trim() !== "" && telefono.trim() !== "" && pweb.trim() !== "" && correo.trim() !== ""){
+
+    //$('#contenedorFirma').load('../common/editorialbarreto/index.html?txtnamesEdit='+names+'&txtcargoEdit='+cargo+'&txtwebEdit='+pweb+'&txtcorreoEdit='+correo+'');
+    $('#contenedorFirma').html(`<div id="firma" style="background:#fff;">
+    <table border="0">
+    <tbody>
+	<tr>
+     <td colspan="5"><img style="width: 100%;" src="./assets/imgs/innovascientific/headerInvs.png"/></td>
+    </tr>
+    <tr>
+       <td rowspan="5" style="padding:0px;">
+       <img src="./assets/imgs/innovascientific/logoInvs.png" />
+       </td>
+       <td colspan="2" style="font-family: verdana;font-size: 11px;color: #333;padding-bottom: 0.5rem;">${names}<br>${cargo}</td>
+       <td rowspan="5">&nbsp;&nbsp;</td>
+    </tr>
+    <tr style="font-size: 15px">
+       <td colspan="2"style="font-family: verdana;font-size: 11px;color: #333;padding-bottom: 0.5rem;">${telefono}<br>${correo}</td>
+    </tr>
+    <tr>
+       <td colspan="2" style="font-family: verdana;font-size: 11px;color: #333;padding-bottom: 0.5rem;">Oficina Principal: Av. La Marina 1453,<br>San Miguel, Lima, Perú</td>
+    <tr>
+       <td colspan="2" style="font-family: verdana;font-size: 11px;color: #333;">www.innovascientific.com</td>
+    </tr>
+    </tbody>
+</table>
+</div>`);
+    $('#contenedorFirma').append('<button class="btn-sm btn-primary mt-4" id="btnSave2">Descargar Imagen</button>')
+    document.getElementById('firma').contentEditable = 'true';
+    document.getElementById('firma').designMode='on';
+   
+
+    $("#btnSave2").click(function(e) {
+        e.preventDefault();
+    html2canvas($("#firma"), {
+      onrendered: function(canvas) {
+        saveAs(canvas.toDataURL(), 'firma.png');
+      }
+    });
+  });
+
+  function saveAs(uri, filename) {
+    var link = document.createElement('a');
+    if (typeof link.download === 'string') {
+      link.href = uri;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      window.open(uri);
+    }
+  }
+  
+    
+    
+}else{
+       alert("Completa todos los campos!");
+   }
+
+   
+
+});
+ </script>
